@@ -61,7 +61,52 @@ class Com2SenseDataProcessor(DataProcessor):
         # coming from the same complementary pair.
         # Make sure to handle if data do not have
         # labels field.
-        raise NotImplementedError("Please finish the TODO!")
+
+        json_path = os.path.join(data_dir, split + ".json")
+        data = json.load(open(json_path, "r"))
+
+        examples = []
+
+        for i in range(len(data)):
+            datum = data[i]
+            #print(datum)
+            guid = str(i)
+            text_1 = datum["sent_1"]
+            text_2 = datum["sent_2"]
+
+            label_1 = None
+            label_2 = None
+            if 'label_1' in datum:
+                label_1 = int(bool(datum["label_1"]))
+            if 'label_2' in datum:
+                label_2 = int(bool(datum["label_2"]))
+
+            domain = datum["domain"]
+            scenario = datum["scenario"]
+            numeracy = datum["numeracy"]
+
+
+
+            example_1 = Coms2SenseSingleSentenceExample(
+                guid=guid,
+                text=text_1,
+                label=label_1,
+                domain=domain,
+                scenario=scenario,
+                numeracy=numeracy
+            )
+
+            example_2 = Coms2SenseSingleSentenceExample(
+                guid=guid,
+                text=text_2,
+                label=label_2,
+                domain=domain,
+                scenario=scenario,
+                numeracy=numeracy
+            )
+            examples.append(example_1)
+            examples.append(example_2)
+
         # End of TODO.
         ##################################################
 
@@ -89,5 +134,5 @@ if __name__ == "__main__":
     test_examples = proc.get_test_examples()
     print()
     for i in range(3):
-        print(test_examples[i])
+        print(train_examples[i])
     print()
