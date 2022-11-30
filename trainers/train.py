@@ -621,10 +621,10 @@ def main():
     # for essential args.
 
     # TODO: Huggingface configs.
-    raise NotImplementedError("Please finish the TODO!")
+    configuration = AutoConfig.from_pretrained('bert-base-uncased')
 
     # TODO: Tokenizer.
-    raise NotImplementedError("Please finish the TODO!")
+    tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
 
     # TODO: Defines the model. We use the MLM model when 
     # `training_phase` is `pretrain` otherwise we use the
@@ -636,7 +636,10 @@ def main():
             config=config,
         )
     else:
-        raise NotImplementedError("Please finish the TODO!")
+        model = AutoModelForSequenceClassification.from_pretrained(
+            'bert-base-uncased',
+            config=configuration
+        )
 
     # End of TODO.
     ##################################################

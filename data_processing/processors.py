@@ -275,12 +275,12 @@ if __name__ == "__main__":
                            max_seq_length=args.max_seq_length,
                            args=args)
     sampler = SequentialSampler(dataset)
-    dataloader = DataLoader(dataset, sampler=sampler, batch_size=2)
+    dataloader = DataLoader(dataset, sampler=sampler, batch_size=4)
     epoch_iterator = tqdm(dataloader, desc="Iteration")
 
     for step, batch in enumerate(epoch_iterator):
         for each in batch:
-            print(each.size())
+            print(each)
         break
     pass
 
