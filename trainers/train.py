@@ -615,18 +615,18 @@ def main():
         torch.distributed.barrier()
 
     ##################################################
-    # TODO: Please fill in the below to obtain the
+    # TODO (3.2): Please fill in the below to obtain the
     # `AutoConfig`, `AutoTokenizer` and some auto
     # model classes correctly. Check the documentation
     # for essential args.
 
-    # TODO: Huggingface configs.
+    #Huggingface configs.
     configuration = AutoConfig.from_pretrained('bert-base-uncased')
 
-    # TODO: Tokenizer.
+    #Tokenizer.
     tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
 
-    # TODO: Defines the model. We use the MLM model when 
+    # Defines the model. We use the MLM model when
     # `training_phase` is `pretrain` otherwise we use the
     # sequence classification model.
     if args.training_phase == "pretrain":
@@ -641,7 +641,7 @@ def main():
             config=configuration
         )
 
-    # End of TODO.
+    # End of TODO (3.2)
     ##################################################
 
     # Loads models onto the device (gpu or cpu).
