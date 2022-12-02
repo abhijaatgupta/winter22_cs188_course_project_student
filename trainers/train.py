@@ -223,22 +223,25 @@ def train(args, train_dataset, model, tokenizer):
 
             ##################################################
             # TODO: Please finish the following training loop.
-            raise NotImplementedError("Please finish the TODO!")
+            else:
+                #not sure how to format this yet
+          
+            outputs = model(batch)
 
             # TODO: See the HuggingFace transformers doc to properly get
             # the loss from the model outputs.
-            raise NotImplementedError("Please finish the TODO!")
+            loss = outputs.loss
 
             if args.n_gpu > 1:
                 # Applies mean() to average on multi-gpu parallel training.
                 loss = loss.mean()
 
             # Handles the `gradient_accumulation_steps`, i.e., every such
-            # steps we update the model, so the loss needs to be devided.
-            raise NotImplementedError("Please finish the TODO!")
+            # steps we update the model, so the loss needs to be divided.
+            loss = loss / args.per_gpu_train_batch_size
 
             # Loss backward.
-            raise NotImplementedError("Please finish the TODO!")
+            loss.backward()
 
             # End of TODO.
             ##################################################
@@ -621,10 +624,10 @@ def main():
     # for essential args.
 
     #Huggingface configs.
-    configuration = AutoConfig.from_pretrained('bert-base-uncased')
+    config = AutoConfig.from_pretrained(args.model_name_or_path)
 
     #Tokenizer.
-    tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
 
     # Defines the model. We use the MLM model when
     # `training_phase` is `pretrain` otherwise we use the
@@ -637,8 +640,8 @@ def main():
         )
     else:
         model = AutoModelForSequenceClassification.from_pretrained(
-            'bert-base-uncased',
-            config=configuration
+            args.model_name_or_path,
+            config=config
         )
 
     # End of TODO (3.2)
