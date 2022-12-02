@@ -223,9 +223,7 @@ def train(args, train_dataset, model, tokenizer):
 
             ##################################################
             # TODO: Please finish the following training loop.
-            else:
-                #not sure how to format this yet
-          
+
             outputs = model(batch)
 
             # TODO: See the HuggingFace transformers doc to properly get
@@ -238,7 +236,7 @@ def train(args, train_dataset, model, tokenizer):
 
             # Handles the `gradient_accumulation_steps`, i.e., every such
             # steps we update the model, so the loss needs to be divided.
-            loss = loss / args.per_gpu_train_batch_size
+            loss = loss / args.gradient_accumulation_steps
 
             # Loss backward.
             loss.backward()
@@ -391,17 +389,22 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
 
             ##################################################
             # TODO: Please finish the following eval loop.
-            raise NotImplementedError("Please finish the TODO!")
+
+            outputs = model(batch)
 
             # TODO: See the HuggingFace transformers doc to properly get the loss
             # AND the logits from the model outputs, it can simply be 
             # indexing properly the outputs as tuples.
             # Make sure to perform a `.mean()` on the eval loss and add it
             # to the `eval_loss` variable.
-            raise NotImplementedError("Please finish the TODO!")
+
+            logits = outputs.logits
+            loss = outputs.loss
+
+            eval_loss += loss.mean()
 
             # TODO: Handles the logits with Softmax properly.
-            raise NotImplementedError("Please finish the TODO!")
+            preds = torch.argmax(logits, dim=-1)
 
             # End of TODO.
             ##################################################
