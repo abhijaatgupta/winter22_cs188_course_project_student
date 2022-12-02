@@ -30,7 +30,27 @@ def pairwise_accuracy(guids, preds, labels):
     # statement coming from the same complementary
     # pair is identical. You can simply pair the these
     # predictions and labels w.r.t the `guid`. 
-    raise NotImplementedError("Please finish the TODO!")
+
+    id_dict = {}
+    i = 0
+    for id in guids:
+        if id in id_dict:
+            if id_dict[id] == True:
+                id_dict[id] = (preds[i] == labels[i])
+        else:
+            id_dict[id] = (preds[i] == labels[i])
+        i += 1
+
+    numerator = 0.0
+    denomenator = 0.0
+    for gid in id_dict:
+        if id_dict[gid]:
+            numerator += 1
+        denomenator += 1
+
+    #print(id_dict)
+    acc = numerator / denomenator
+
     # End of TODO
     ########################################################
      
