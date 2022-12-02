@@ -404,7 +404,9 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
             eval_loss += loss.mean()
 
             # TODO: Handles the logits with Softmax properly.
-            preds = torch.argmax(logits, dim=-1)
+            raw_preds = torch.argmax(logits, dim=-1)
+            sm = torch.nn.Softmax(dim=1)
+            preds = sm(raw_preds)
 
             # End of TODO.
             ##################################################
