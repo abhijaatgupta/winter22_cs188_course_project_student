@@ -263,7 +263,7 @@ if __name__ == "__main__":
 
     for step, batch in enumerate(epoch_iterator):
         for each in batch:
-            print(each.size())
+            print(each)
         break
     pass
 

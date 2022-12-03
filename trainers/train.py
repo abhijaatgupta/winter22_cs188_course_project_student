@@ -225,8 +225,8 @@ def train(args, train_dataset, model, tokenizer):
             ##################################################
             # TODO: Please finish the following training loop.
 
-            outputs = model(batch[2])
-
+            outputs = model(input_ids=inputs["input_ids"], attention_mask=inputs["attention_mask"],token_type_ids=inputs["token_type_ids"], labels=inputs["labels"])
+            print(batch[2])
             # TODO: See the HuggingFace transformers doc to properly get
             # the loss from the model outputs.
             loss = outputs.loss
@@ -391,7 +391,10 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
             ##################################################
             # TODO: Please finish the following eval loop.
 
-            outputs = model(batch[2])
+            if has_label:
+                outputs = model(input_ids=inputs["input_ids"], attention_mask=inputs["attention_mask"], token_type_ids=batch[2], labels=inputs["labels"])
+            else:
+                outputs = model(input_ids=inputs["input_ids"], attention_mask=inputs["attention_mask"], token_type_ids=batch[2])
 
             # TODO: See the HuggingFace transformers doc to properly get the loss
             # AND the logits from the model outputs, it can simply be 
@@ -400,17 +403,20 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
             # to the `eval_loss` variable.
 
             logits = outputs.logits
-            loss = outputs.loss
 
-            eval_loss += loss.mean()
+            if has_label:
+                loss = outputs.loss
+                eval_loss += loss.mean()
 
             # TODO: Handles the logits with Softmax properly.
             #raw_preds = torch.argmax(logits, dim=-1)
             #sm = torch.nn.Softmax(dim=1)
             #preds = sm(raw_preds)
 
-            preds = torch.nn.functional.softmax(logits, dim=-1)
+            logits = torch.nn.functional.softmax(logits, dim=-1)
 
+            print(preds)
+            print(inputs["labels"].detach().cpu().numpy())
             # End of TODO.
             ##################################################
 
