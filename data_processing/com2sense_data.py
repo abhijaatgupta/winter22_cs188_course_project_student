@@ -133,6 +133,6 @@ if __name__ == "__main__":
     val_examples = proc.get_dev_examples()
     test_examples = proc.get_test_examples()
     print()
-    for i in range(3):
-        print(train_examples[i])
+    for i in range(4):
+        print(test_examples[i])
     print()

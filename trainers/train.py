@@ -213,7 +213,7 @@ def train(args, train_dataset, model, tokenizer):
                 inputs["token_type_ids"] = (
                     batch[2] if args.model_type in ["bert", "roberta"] else None
                 )  # XLM and DistilBERT don't use segment_ids
-                inputs["token_type_ids"] = None
+                #inputs["token_type_ids"] = None
 
             if args.training_phase == "pretrain":
                 masked_inputs, lm_labels = mask_tokens(
@@ -223,7 +223,10 @@ def train(args, train_dataset, model, tokenizer):
 
             ##################################################
             # TODO: Please finish the following training loop.
-
+            #logger.info("input_ids: %s", inputs["input_ids"])
+            #logger.info("labels: %s", inputs["labels"])
+            #logger.info("attention_mask: %s", inputs["attention_mask"])
+            #logger.info("token_type_ids %s", inputs["token_type_ids"])
             outputs = model(input_ids=inputs["input_ids"], attention_mask=inputs["attention_mask"],token_type_ids=inputs["token_type_ids"], labels=inputs["labels"])
             #(batch[2])
             # TODO: See the HuggingFace transformers doc to properly get
@@ -493,7 +496,7 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
 
         output_eval_file = os.path.join(args.output_dir,
             prefix, "eval_results_split_{}.txt".format(data_split))
-
+    logger.info("\n\noutput file: %s", output_eval_file)
     if has_label:
         with open(output_eval_file, "w") as writer:
             logger.info("***** Eval results {} on split: {} *****".format(prefix, data_split))
@@ -721,8 +724,8 @@ def main():
                   # implementations, just a reminder.
             # End of TODO.
             ##################################################
-
-            result = evaluate(args, model, tokenizer, prefix=prefix, data_split=args.eval_split)
+            logger.info("\n\nprefix: %s", prefix)
+            result = evaluate(args, model, tokenizer, prefix="", data_split=args.eval_split)
             result = dict((k + "_{}".format(global_step), v)
                            for k, v in result.items())
             results.update(result)

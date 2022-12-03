@@ -200,7 +200,6 @@ class Com2SenseDataset(Dataset):
         example = self.examples[idx]
         guid = int(example.guid)
         text = example.text
-        label = example.label
         domain = example.domain
         scenario = example.scenario
         numeracy = example.numeracy
@@ -214,7 +213,7 @@ class Com2SenseDataset(Dataset):
         )
 
         input_ids = torch.Tensor(batch_encoding["input_ids"]).long()
-        attention_mask = torch.Tensor(batch_encoding["attention_mask"]).long()
+        attention_mask = torch.Tensor(batch_encoding["attention_mask"]).float()
         if "token_type_ids" not in batch_encoding:
             token_type_ids = torch.zeros_like(input_ids)
         else:
@@ -227,7 +226,7 @@ class Com2SenseDataset(Dataset):
 
         # End of TODO.
         ##################################################
-
+        label = example.label
         if label is not None:
             labels = torch.Tensor([label]).long()[0]
 
@@ -236,7 +235,7 @@ class Com2SenseDataset(Dataset):
                 return input_ids, attention_mask, token_type_ids, guid #, domains, scenarios, nums
             return input_ids, attention_mask, token_type_ids, labels, guid #, domains, scenarios, nums
 
-        return input_ids, attention_mask, token_type_ids, guid #, domains, scenarios, nums
+        return input_ids, attention_mask, token_type_ids, labels, guid #, domains, scenarios, nums
 
 
 if __name__ == "__main__":
