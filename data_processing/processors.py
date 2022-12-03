@@ -235,7 +235,10 @@ class Com2SenseDataset(Dataset):
                 return input_ids, attention_mask, token_type_ids, guid #, domains, scenarios, nums
             return input_ids, attention_mask, token_type_ids, labels, guid #, domains, scenarios, nums
 
-        return input_ids, attention_mask, token_type_ids, labels, guid #, domains, scenarios, nums
+        if label is not None:
+            return input_ids, attention_mask, token_type_ids, labels #, guid , domains, scenarios, nums
+        return input_ids, attention_mask, token_type_ids  # , guid , domains, scenarios, nums
+
 
 
 if __name__ == "__main__":
@@ -274,7 +277,7 @@ if __name__ == "__main__":
                            max_seq_length=args.max_seq_length,
                            args=args)
     sampler = SequentialSampler(dataset)
-    dataloader = DataLoader(dataset, sampler=sampler, batch_size=4)
+    dataloader = DataLoader(dataset, sampler=sampler, batch_size=2)
     epoch_iterator = tqdm(dataloader, desc="Iteration")
 
     for step, batch in enumerate(epoch_iterator):

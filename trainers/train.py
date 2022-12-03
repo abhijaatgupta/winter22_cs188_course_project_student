@@ -496,7 +496,7 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
 
         output_eval_file = os.path.join(args.output_dir,
             prefix, "eval_results_split_{}.txt".format(data_split))
-    logger.info("\n\noutput file: %s", output_eval_file)
+        logger.info("\n\noutput file: %s", output_eval_file)
     if has_label:
         with open(output_eval_file, "w") as writer:
             logger.info("***** Eval results {} on split: {} *****".format(prefix, data_split))
