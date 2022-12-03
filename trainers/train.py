@@ -24,7 +24,8 @@ import logging
 import os
 import random
 import pprint
-
+import sys;
+print(sys.executable)
 import numpy as np
 import torch
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler, TensorDataset
@@ -224,7 +225,7 @@ def train(args, train_dataset, model, tokenizer):
             ##################################################
             # TODO: Please finish the following training loop.
 
-            outputs = model(batch)
+            outputs = model(batch[2])
 
             # TODO: See the HuggingFace transformers doc to properly get
             # the loss from the model outputs.
@@ -390,7 +391,7 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
             ##################################################
             # TODO: Please finish the following eval loop.
 
-            outputs = model(batch)
+            outputs = model(batch[2])
 
             # TODO: See the HuggingFace transformers doc to properly get the loss
             # AND the logits from the model outputs, it can simply be 
@@ -404,9 +405,11 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
             eval_loss += loss.mean()
 
             # TODO: Handles the logits with Softmax properly.
-            raw_preds = torch.argmax(logits, dim=-1)
-            sm = torch.nn.Softmax(dim=1)
-            preds = sm(raw_preds)
+            #raw_preds = torch.argmax(logits, dim=-1)
+            #sm = torch.nn.Softmax(dim=1)
+            #preds = sm(raw_preds)
+
+            preds = torch.nn.functional.softmax(logits, dim=-1)
 
             # End of TODO.
             ##################################################
@@ -650,6 +653,7 @@ def main():
     else:
         model = AutoModelForSequenceClassification.from_pretrained(
             args.model_name_or_path,
+            from_tf=bool(".ckpt" in args.model_name_or_path),
             config=config
         )
 
