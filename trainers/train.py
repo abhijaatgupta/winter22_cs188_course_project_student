@@ -459,8 +459,10 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
 
         ##################################################
         # TODO: Please finish the results computation.
-        print("preds: " + preds)
-        print("labels: " + labels)
+        print("preds:")
+        print(preds)
+        print("labels:")
+        print(labels)
 
         if args.training_phase == "pretrain":
             # For `pretrain` phase, we only need to compute the
