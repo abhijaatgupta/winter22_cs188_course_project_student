@@ -592,6 +592,8 @@ def main():
     # Setup CUDA, GPU & distributed training.
     # Initializes the distributed backend which will take care of
     # sychronizing nodes/GPUs.
+    print(torch.backends.cudnn.enabled)
+    print(torch.cuda.is_available())
     if args.local_rank == -1 or args.no_cuda:
         device = torch.device("cuda" if torch.cuda.is_available()
                               and not args.no_cuda else "cpu")
@@ -669,8 +671,8 @@ def main():
     ##################################################
 
     # Loads models onto the device (gpu or cpu).
-    model.to(args.device)
-    print(model)
+    #model.to(args.device)
+    #print(model)
     args.model_type = config.model_type
 
     logger.info("Training/evaluation parameters %s", args)
@@ -725,7 +727,7 @@ def main():
             # End of TODO.
             ##################################################
             logger.info("\n\nprefix: %s", prefix)
-            result = evaluate(args, model, tokenizer, prefix="", data_split=args.eval_split)
+            result = evaluate(args, model, tokenizer, prefix=prefix, data_split=args.eval_split)
             result = dict((k + "_{}".format(global_step), v)
                            for k, v in result.items())
             results.update(result)
