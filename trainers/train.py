@@ -417,7 +417,7 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
 
             logits = torch.nn.functional.softmax(logits, dim=-1)
 
-            print(preds)
+            print(logits.detach().cpu().numpy())
             print(inputs["labels"].detach().cpu().numpy())
             # End of TODO.
             ##################################################
