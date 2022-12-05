@@ -9,6 +9,7 @@ OUTPUT_DIR=${TASK_NAME}/ckpts
 CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --model_name_or_path ${MODEL_TYPE} \
   --do_train \
+  --evaluate_during_training \
   --do_eval \
   --eval_all_checkpoints \
   --gradient_accumulation_steps 4 \
