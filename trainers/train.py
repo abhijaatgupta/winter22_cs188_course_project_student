@@ -417,8 +417,8 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
 
             logits = torch.nn.functional.softmax(logits, dim=-1)
 
-            print(logits.detach().cpu().numpy())
-            print(inputs["labels"].detach().cpu().numpy())
+            #print(logits.detach().cpu().numpy())
+            #print(inputs["labels"].detach().cpu().numpy())
             # End of TODO.
             ##################################################
 
@@ -459,6 +459,8 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
 
         ##################################################
         # TODO: Please finish the results computation.
+        print("preds: " + preds)
+        print("labels: " + labels)
 
         if args.training_phase == "pretrain":
             # For `pretrain` phase, we only need to compute the
