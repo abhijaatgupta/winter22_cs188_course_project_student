@@ -81,6 +81,7 @@ class DummyDataset(Dataset):
         )
 
         input_ids = torch.Tensor(batch_encoding["input_ids"]).long()
+        #print(batch_encoding["attention_mask"])
         attention_mask = torch.Tensor(batch_encoding["attention_mask"]).long()
         if "token_type_ids" not in batch_encoding:
             token_type_ids = torch.zeros_like(input_ids)
@@ -213,7 +214,8 @@ class Com2SenseDataset(Dataset):
         )
 
         input_ids = torch.Tensor(batch_encoding["input_ids"]).long()
-        attention_mask = torch.Tensor(batch_encoding["attention_mask"]).float()
+        #print(batch_encoding["attention_mask"])
+        attention_mask = torch.Tensor(batch_encoding["attention_mask"]).long()
         if "token_type_ids" not in batch_encoding:
             token_type_ids = torch.zeros_like(input_ids)
         else:
@@ -254,7 +256,7 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 
     processor = DummyDataProcessor(data_dir="datasets/dummies", args=args)
-    examples = processor.get_test_examples()
+    examples = processor.get_train_examples()
 
     dataset = DummyDataset(examples, tokenizer,
                            max_seq_length=args.max_seq_length,
@@ -271,7 +273,7 @@ if __name__ == "__main__":
 
     # You can write your own unit-testing utilities here similar to above.
     processor = Com2SenseDataProcessor(data_dir="datasets/com2sense", args=args)
-    examples = processor.get_test_examples()
+    examples = processor.get_train_examples()
 
     dataset = Com2SenseDataset(examples, tokenizer,
                            max_seq_length=args.max_seq_length,
