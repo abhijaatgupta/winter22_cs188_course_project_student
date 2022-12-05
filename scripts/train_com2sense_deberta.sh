@@ -1,7 +1,7 @@
 DATA_DIR="datasets/com2sense"
-#MODEL_TYPE="bert-base-cased"
+MODEL_TYPE="bert-base-cased"
 #MODEL_TYPE="roberta-base"
-MODEL_TYPE="microsoft/deberta-base"
+#MODEL_TYPE="microsoft/deberta-base"
 TASK_NAME="com2sense"
 OUTPUT_DIR=${TASK_NAME}/ckpts
 
@@ -22,8 +22,8 @@ CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --data_dir "${DATA_DIR}" \
   --save_steps 100 \
   --logging_steps 100 \
-  --warmup_steps 100 \
+  --warmup_steps 10 \
   --eval_split "test" \
   --score_average_method "micro" \
   --do_not_load_optimizer \
-  #--overwrite_output_dir \
+  --overwrite_output_dir \
