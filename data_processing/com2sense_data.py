@@ -77,9 +77,9 @@ class Com2SenseDataProcessor(DataProcessor):
             label_1 = None
             label_2 = None
             if 'label_1' in datum:
-                label_1 = int(bool(datum["label_1"]))
+                label_1 = self.label2int[datum["label_1"]]
             if 'label_2' in datum:
-                label_2 = int(bool(datum["label_2"]))
+                label_2 = self.label2int[datum["label_2"]]
 
             domain = datum["domain"]
             scenario = datum["scenario"]
