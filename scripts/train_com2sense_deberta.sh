@@ -8,12 +8,13 @@ OUTPUT_DIR=${TASK_NAME}/ckpts
 
 CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --model_name_or_path ${MODEL_TYPE} \
+  --do_train \
   --do_eval \
   --gradient_accumulation_steps 4 \
   --per_gpu_train_batch_size 32 \
   --per_gpu_eval_batch_size 1 \
   --learning_rate 1e-5 \
-  --num_train_epochs 100.0 \
+  --num_train_epochs 120.0 \
   --max_seq_length 128 \
   --output_dir "${OUTPUT_DIR}/ckpts" \
   --task_name "${TASK_NAME}" \
@@ -21,8 +22,8 @@ CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --save_steps 300 \
   --logging_steps 300 \
   --warmup_steps 100 \
-  --eval_split "test" \
+  --eval_split "dev" \
   --score_average_method "micro" \
   --do_not_load_optimizer \
-  --iters_to_eval 1200 \
+  --iters_to_eval 1200 1500  \
   --overwrite_output_dir \
