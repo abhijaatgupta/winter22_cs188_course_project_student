@@ -9,7 +9,6 @@ OUTPUT_DIR=${TASK_NAME}/ckpts
 CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --model_name_or_path ${MODEL_TYPE} \
   --do_eval \
-  --eval_all_checkpoints \
   --gradient_accumulation_steps 4 \
   --per_gpu_train_batch_size 32 \
   --per_gpu_eval_batch_size 1 \
@@ -25,4 +24,5 @@ CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --eval_split "dev" \
   --score_average_method "micro" \
   --do_not_load_optimizer \
+  --iters_to_eval 1200 \
   --overwrite_output_dir \
