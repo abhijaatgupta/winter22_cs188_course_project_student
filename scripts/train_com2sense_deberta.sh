@@ -8,7 +8,6 @@ OUTPUT_DIR=${TASK_NAME}/ckpts
 
 CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --model_name_or_path ${MODEL_TYPE} \
-  --do_train \
   --do_eval \
   --gradient_accumulation_steps 4 \
   --per_gpu_train_batch_size 16 \
