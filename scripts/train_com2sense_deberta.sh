@@ -14,7 +14,7 @@ CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --per_gpu_train_batch_size 32 \
   --per_gpu_eval_batch_size 1 \
   --learning_rate 1e-5 \
-  --num_train_epochs 120.0 \
+  --max_steps 1500 \
   --max_seq_length 128 \
   --output_dir "${OUTPUT_DIR}/ckpts" \
   --task_name "${TASK_NAME}" \
