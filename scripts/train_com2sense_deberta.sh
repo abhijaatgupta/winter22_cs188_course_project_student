@@ -20,8 +20,8 @@ CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --output_dir "${OUTPUT_DIR}/ckpts" \
   --task_name "${TASK_NAME}" \
   --data_dir "${DATA_DIR}" \
-  --save_steps 1000 \
-  --logging_steps 1000 \
+  --save_steps 300 \
+  --logging_steps 300 \
   --warmup_steps 100 \
   --eval_split "dev" \
   --score_average_method "micro" \
