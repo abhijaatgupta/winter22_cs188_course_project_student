@@ -21,7 +21,7 @@ CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --save_steps 300 \
   --logging_steps 300 \
   --warmup_steps 100 \
-  --eval_split "test" \
+  --eval_split "dev" \
   --score_average_method "micro" \
   --do_not_load_optimizer \
   --iters_to_eval 900  \
