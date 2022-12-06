@@ -13,8 +13,8 @@ CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --gradient_accumulation_steps 4 \
   --per_gpu_train_batch_size 32 \
   --per_gpu_eval_batch_size 1 \
-  --learning_rate 1e-5 \
-  --max_steps 1500 \
+  --learning_rate 1e-4 \
+  --max_steps 1200 \
   --max_seq_length 128 \
   --output_dir "${OUTPUT_DIR}/ckpts" \
   --task_name "${TASK_NAME}" \
