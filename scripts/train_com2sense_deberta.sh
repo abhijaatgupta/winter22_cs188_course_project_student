@@ -14,7 +14,7 @@ CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --per_gpu_train_batch_size 32 \
   --per_gpu_eval_batch_size 1 \
   --learning_rate 1e-4 \
-  --max_steps 1200 \
+  --num_train_epochs 100.0 \
   --max_seq_length 128 \
   --output_dir "${OUTPUT_DIR}/ckpts" \
   --task_name "${TASK_NAME}" \
@@ -25,5 +25,5 @@ CUDA_VISIBLE_DEVICES=0 python3 -m trainers.train \
   --eval_split "dev" \
   --score_average_method "micro" \
   --do_not_load_optimizer \
-  --iters_to_eval 1200 1500  \
+  --iters_to_eval 300 600 900 1200  \
   --overwrite_output_dir \
